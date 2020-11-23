@@ -76,6 +76,8 @@ public class LoSPDAO {
                         
                 );
                 ListLoSP.add(loSP);
+                
+               
             }
             rs.close();
         } catch (SQLException ex) {
