@@ -1,64 +1,67 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Model;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
- * @author TRAN NAM
+ * @author hoang
  */
 public class NhanVien {
-    private String maNV,HoTen,SoDT,DiaChi,CMND;
-    private boolean VaiTro;
-    private Date NgaySinh;
+    private String manv,hoten,sodienthoai,CMND,matkhau;
+    private Date NgaySinh ;
+    private boolean vaitro,gioitinh;
+
+    public NhanVien(String manv, String hoten, String sodienthoai, String CMND, String matkhau, Date NgaySinh, boolean vaitro, boolean gioitinh) {
+        this.manv = manv;
+        this.hoten = hoten;
+        this.sodienthoai = sodienthoai;
+        this.CMND = CMND;
+        this.matkhau = matkhau;
+        this.NgaySinh = NgaySinh;
+        this.vaitro = vaitro;
+        this.gioitinh = gioitinh;
+    }
+
+    public NhanVien(String manv, String hoten, String sodienthoai, String CMND, Date NgaySinh, boolean gioitinh) {
+        this.manv = manv;
+        this.hoten = hoten;
+        this.sodienthoai = sodienthoai;
+        this.CMND = CMND;
+        this.NgaySinh = NgaySinh;
+        this.gioitinh = gioitinh;
+    }
+    
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String HoTen, String SoDT, String DiaChi, String CMND, boolean VaiTro, Date NgaySinh) {
-        this.maNV = maNV;
-        this.HoTen = HoTen;
-        this.SoDT = SoDT;
-        this.DiaChi = DiaChi;
-        this.CMND = CMND;
-        this.VaiTro = VaiTro;
-        this.NgaySinh = NgaySinh;
+    public String getManv() {
+        return manv;
     }
 
-    public String getMaNV() {
-        return maNV;
+    public void setManv(String manv) {
+        this.manv = manv;
     }
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
+    public String getHoten() {
+        return hoten;
     }
 
-    public String getHoTen() {
-        return HoTen;
+    public void setHoten(String hoten) {
+        this.hoten = hoten;
     }
 
-    public void setHoTen(String HoTen) {
-        this.HoTen = HoTen;
+    public String getSodienthoai() {
+        return sodienthoai;
     }
 
-    public String getSoDT() {
-        return SoDT;
-    }
-
-    public void setSoDT(String SoDT) {
-        this.SoDT = SoDT;
-    }
-
-    public String getDiaChi() {
-        return DiaChi;
-    }
-
-    public void setDiaChi(String DiaChi) {
-        this.DiaChi = DiaChi;
+    public void setSodienthoai(String sodienthoai) {
+        this.sodienthoai = sodienthoai;
     }
 
     public String getCMND() {
@@ -69,12 +72,12 @@ public class NhanVien {
         this.CMND = CMND;
     }
 
-    public boolean isVaiTro() {
-        return VaiTro;
+    public String getMatkhau() {
+        return matkhau;
     }
 
-    public void setVaiTro(boolean VaiTro) {
-        this.VaiTro = VaiTro;
+    public void setMatkhau(String matkhau) {
+        this.matkhau = matkhau;
     }
 
     public Date getNgaySinh() {
@@ -84,5 +87,24 @@ public class NhanVien {
     public void setNgaySinh(Date NgaySinh) {
         this.NgaySinh = NgaySinh;
     }
+
+    public boolean isVaitro() {
+        return vaitro;
+    }
+
+    public void setVaitro(boolean vaitro) {
+        this.vaitro = vaitro;
+    }
+
+    public boolean isGioitinh() {
+        return gioitinh;
+    }
+
+    public void setGioitinh(boolean gioitinh) {
+        this.gioitinh = gioitinh;
+    }
+    
+    
+   
     
 }
