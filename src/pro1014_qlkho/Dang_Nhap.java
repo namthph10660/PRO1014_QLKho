@@ -189,7 +189,7 @@ public class Dang_Nhap extends javax.swing.JFrame {
                 if(rs!=null){
                     
                         JOptionPane.showMessageDialog(this, "Đăng nhập thành công ");
-                        new TrangChu().setVisible(true);
+                        new TrangChu1().setVisible(true);
                         this.dispose();
                 }      
             else{
