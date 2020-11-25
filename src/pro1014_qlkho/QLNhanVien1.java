@@ -43,7 +43,7 @@ public class QLNhanVien1 extends javax.swing.JFrame {
         }
         
     }
-ssgdfgdfgfg
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -483,7 +483,54 @@ ssgdfgdfgfg
     private void txtTenNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenNVActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenNVActionPerformed
-int vitri;
+    public boolean check(){
+        for(NhanVien nv: listnv){
+           if(txtMaNV.getText().equalsIgnoreCase(nv.getManv())){
+               
+          return false;
+           } 
+            
+        }
+        return true;
+    }
+    private boolean validateForm() {
+        if (txtMaNV.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không để trống mã nhân viên");
+            txtMaNV.requestFocus();
+            return false;
+        }else if (txtMaNV.getText().length() > 0 && txtMaNV.getText().length() < 3) {
+            JOptionPane.showMessageDialog(this, "Mã nhân viên phải hơn 3 kí tự");
+            txtMaNV.requestFocus();
+            return false;
+        } else if (txtTenNV.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không để trống tên nhân viên");
+            txtTenNV.requestFocus();
+            return false;
+        } else if (txtSDT.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không để trống số điện thoại ");
+            txtSDT.requestFocus();
+            return false;
+        } else if (txtSDT.getText().length() < 10 || txtSDT.getText().length() > 12) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải nhập đủ 10 hoặc 11 số");
+            txtSDT.requestFocus();
+            return false;
+        } else if (!txtSDT.getText().matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại chỉ nhập số");
+            txtSDT.requestFocus();
+            return false;
+        } else if (txtCMND.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "CMND nhân viên không được để trống");
+            txtCMND.requestFocus();
+            return false;
+        } else if (!txtCMND.getText().matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(this, "CMND chỉ nhập số");
+            txtSDT.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+    int vitri;
     private void tbl_DSachNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_DSachNVMouseClicked
         // TODO add your handling code here:
         int row = tbl_DSachNV.getSelectedRow();
@@ -596,17 +643,14 @@ int vitri;
         txtXNMK.setText("");
         txtMK.setText("");
     }
-    public boolean check() {
-        for (NhanVien nv : listnv) {
-            if (txtMaNV.getText().trim().equalsIgnoreCase(nv.getManv())) {
-                JOptionPane.showMessageDialog(this, "mã nhân viên đã tồn tại ");
-                return false;
-            }
-        }
-        return true;
-    }
+    
     public void them(){
+        
         try {
+            if(check()==false){
+                JOptionPane.showMessageDialog(rootPane, "Mã nhân viên đã tồn tại");
+                return;
+            }else if(validateForm()){
             String ma = txtMaNV.getText();
             String ten = txtTenNV.getText();
             String sdt = txtSDT.getText();
@@ -639,7 +683,8 @@ int vitri;
                 JOptionPane.showMessageDialog(this, "Ban khong them duoc dong nao");
 
             }
-            
+        }
+        
         } catch (Exception evt) {
             JOptionPane.showMessageDialog(this, evt);
         }
@@ -647,6 +692,10 @@ int vitri;
     } 
     public void sua(){
         try {
+            if(check()==true){
+                JOptionPane.showMessageDialog(this, "Mã nhân viên sai");
+                return;
+            }else if(validateForm()){
 //            txtMaNV.setEnabled(true);
             String ma = txtMaNV.getText();
             String ten = txtTenNV.getText();
@@ -685,7 +734,7 @@ int vitri;
                 JOptionPane.showMessageDialog(this, "Ban khong sua duoc dong nao");
 
             }
-            
+            }
         } catch (Exception evt) {
             JOptionPane.showMessageDialog(this, evt);
         }

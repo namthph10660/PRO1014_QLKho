@@ -42,7 +42,8 @@ public class NhaCCDao {
 
             ResultSet rs = sta.executeQuery(sql);
             while (rs.next()) {
-                result.add(new NhaCungCap(rs.getString(1),
+                result.add(new NhaCungCap(
+                        rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
