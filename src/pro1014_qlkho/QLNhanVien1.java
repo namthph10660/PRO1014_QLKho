@@ -43,7 +43,6 @@ public class QLNhanVien1 extends javax.swing.JFrame {
         }
         
     }
-ssgdfgdfgfg
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -329,12 +328,32 @@ ssgdfgdfgfg
         jButton5.setText("Nhập file Excel");
 
         jButton6.setText("<<");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("|<");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText(">|");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText(">>");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -479,7 +498,55 @@ ssgdfgdfgfg
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   public boolean check() {
+        for (NhanVien nv : listnv) {
+            if (txtMaNV.getText().trim().equalsIgnoreCase(nv.getManv())) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean validateform(){
+         if (txtMaNV.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không để trống mã nhân viên");
+            txtMaNV.requestFocus();
+            return false;
+        } else if (txtMaNV.getText().length() > 0 && txtMaNV.getText().length() < 3) {
+            JOptionPane.showMessageDialog(this, "Mã nhân viên phải hơn 3 kí tự");
+            txtMaNV.requestFocus();
+            return false;
+        } else if (txtTenNV.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không để trống tên nhân viên");
+            txtTenNV.requestFocus();
+            return false;
+        } else if (txtSDT.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không để trống số điện thoại ");
+            txtSDT.requestFocus();
+            return false;
+        } else if (txtSDT.getText().length() < 10 || txtSDT.getText().length() > 12) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải nhập đủ 10 hoặc 11 số");
+            txtSDT.requestFocus();
+            return false;
+        } else if (!txtSDT.getText().matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại chỉ nhập số");
+            txtSDT.requestFocus();
+            return false;
+        }else if (txtCMND.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không để trống CMND ");
+            txtSDT.requestFocus();
+            return false;
+        } else if (!txtSDT.getText().matches("[0-9]+")) {
+            JOptionPane.showMessageDialog(this, "CMND chỉ nhập số");
+            txtSDT.requestFocus();
+            return false;
+        } else if (txtNgaySinh.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh không được để trống");
+            txtNgaySinh.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
     private void txtTenNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenNVActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTenNVActionPerformed
@@ -533,6 +600,50 @@ int vitri;
         // TODO add your handling code here:
         taotk();
     }//GEN-LAST:event_btnTaoTKActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+         try {
+            if (vitri > 0) {
+                vitri--;
+                display(vitri);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi chọn vị trí");
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        try {
+            vitri = 0;
+            display(vitri);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi chọn vị trí");
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        try {
+            vitri = listnv.size() - 1;
+            display(vitri);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi chọn vị trí");
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+       try {
+            if (vitri < listnv.size() - 1) {
+                vitri++;
+                display(vitri);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi chọn vị trí");
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
     public void loadatatolist() {
         try {
             String sql = "select * from NHANVIEN";
@@ -596,17 +707,14 @@ int vitri;
         txtXNMK.setText("");
         txtMK.setText("");
     }
-    public boolean check() {
-        for (NhanVien nv : listnv) {
-            if (txtMaNV.getText().trim().equalsIgnoreCase(nv.getManv())) {
-                JOptionPane.showMessageDialog(this, "mã nhân viên đã tồn tại ");
-                return false;
-            }
-        }
-        return true;
-    }
+    
     public void them(){
+        
         try {
+            if(check()==false){
+            JOptionPane.showMessageDialog(this, "Mã nhân viên đã tồn tại");
+            return;
+        }else if(validateform()){
             String ma = txtMaNV.getText();
             String ten = txtTenNV.getText();
             String sdt = txtSDT.getText();
@@ -639,7 +747,7 @@ int vitri;
                 JOptionPane.showMessageDialog(this, "Ban khong them duoc dong nao");
 
             }
-            
+        }
         } catch (Exception evt) {
             JOptionPane.showMessageDialog(this, evt);
         }
@@ -647,7 +755,10 @@ int vitri;
     } 
     public void sua(){
         try {
-//            txtMaNV.setEnabled(true);
+            if(check()==true){
+                JOptionPane.showMessageDialog(rootPane, "Mã nhân viên không tồn tại vui lòng nhập lại");
+                return;
+            }else if(validateform()){
             String ma = txtMaNV.getText();
             String ten = txtTenNV.getText();
             String sdt = txtSDT.getText();
@@ -685,7 +796,7 @@ int vitri;
                 JOptionPane.showMessageDialog(this, "Ban khong sua duoc dong nao");
 
             }
-            
+            }
         } catch (Exception evt) {
             JOptionPane.showMessageDialog(this, evt);
         }
