@@ -47,7 +47,7 @@ public class quanlisp extends javax.swing.JFrame {
         setResizable(false);
         model = (DefaultTableModel) tbsp.getModel();
         modelCombo = (DefaultComboBoxModel) cbloai.getModel();
-        cn = Helper.helper.ketnoi("QLK");
+        cn = Helper.helper1.ketnoi("QLK");
         if (cn != null) {
             loadatolist();
             filltotable();

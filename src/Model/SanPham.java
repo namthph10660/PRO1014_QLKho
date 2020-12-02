@@ -7,10 +7,10 @@ package Model;
 
 
 public class SanPham {
-    private String MaSp,LoaiSp,Tensp,Hinh;
-    int SoLuong;
+    private String LoaiSp,Tensp,Hinh;
+    int SoLuong,MaSp;
 
-    public SanPham(String MaSp, String LoaiSp, String Tensp, String Hinh, int SoLuong) {
+    public SanPham(int MaSp, String LoaiSp, String Tensp, String Hinh, int SoLuong) {
         this.MaSp = MaSp;
         this.LoaiSp = LoaiSp;
         this.Tensp = Tensp;
@@ -18,7 +18,7 @@ public class SanPham {
         this.SoLuong = SoLuong;
     }
 
-    public SanPham(String MaSp, String LoaiSp, String Tensp) {
+    public SanPham(int MaSp, String LoaiSp, String Tensp) {
         this.MaSp = MaSp;
         this.LoaiSp = LoaiSp;
         this.Tensp = Tensp;
@@ -27,22 +27,18 @@ public class SanPham {
     public SanPham() {
     }
 
-    public String getMaSp() {
+    public int getMaSp() {
         return MaSp;
     }
 
-    public void setMaSp(String MaSp) {
-        this.MaSp = MaSp;
-    public SanPham() {
-    }
-
-    public int getMaSp() {
-        return Masp;
-    }
-
     public void setMaSp(int MaSp) {
-        this.Masp = MaSp;
+        this.MaSp = MaSp;
     }
+  
+
+
+
+  
 
     public String getLoaiSp() {
         return LoaiSp;

@@ -185,7 +185,7 @@ public class PhieuXuatDAO {
              ResultSet rs = ps.executeQuery();
             list.clear();
             while(rs.next()){
-                 SanPham a =new SanPham(rs.getString(1), rs.getString(2), rs.getString(3));
+                 SanPham a =new SanPham(rs.getInt(1), rs.getString(2), rs.getString(3));
                 list.add(a);
             }
         } catch (Exception e) {
