@@ -5,6 +5,15 @@
  */
 package pro1014_qlkho;
 
+import Model.LoaiSanPham;
+import Model.Thuoctinh;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import pro1014_qlkho.*;
 
 /**
@@ -16,8 +25,30 @@ public class QLiloai_SP extends javax.swing.JFrame {
     /**
      * Creates new form TaoPhieuNhapKho
      */
+    DefaultTableModel model;
+    DefaultTableModel model2;
+    ArrayList<LoaiSanPham> listloai = new ArrayList<>();
+    ArrayList<Thuoctinh> listtt = new ArrayList<>();
+    Connection cn;
+
     public QLiloai_SP() {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        model = (DefaultTableModel) tbloai.getModel();
+        model2 = (DefaultTableModel) tbtt.getModel();
+        cn = Helper.helper.ketnoi("QLK");
+        if (cn != null) {
+
+            loaddatatolist();
+            filldatatotable();
+            loadtott();
+            filltt();
+
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Kết nối thất bại");
+        }
+
     }
 
     /**
@@ -35,27 +66,27 @@ public class QLiloai_SP extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        tfmaloai = new javax.swing.JTextField();
+        tfdvt = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        tfloaisp = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbtt = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        tftt = new javax.swing.JTextField();
+        tfdonvi = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tbloai = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,18 +108,38 @@ public class QLiloai_SP extends javax.swing.JFrame {
         jButton8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Refresh.png"))); // NOI18N
         jButton8.setText("Mới");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Delete.png"))); // NOI18N
         jButton7.setText("Xóa ");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Edit.png"))); // NOI18N
         jButton6.setText("Sửa");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Add.png"))); // NOI18N
         jButton5.setText("Thêm");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -141,15 +192,15 @@ public class QLiloai_SP extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3))))
+                            .addComponent(tfmaloai, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                            .addComponent(tfdvt)
+                            .addComponent(tfloaisp))))
                 .addGap(65, 65, 65)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField1, jTextField2, jTextField3});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tfdvt, tfloaisp, tfmaloai});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,22 +212,22 @@ public class QLiloai_SP extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfmaloai, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfloaisp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfdvt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTextField1, jTextField2, jTextField3});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {tfdvt, tfloaisp, tfmaloai});
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -189,7 +240,7 @@ public class QLiloai_SP extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Đơn vị");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbtt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -200,13 +251,28 @@ public class QLiloai_SP extends javax.swing.JFrame {
                 "STT", "Tên thuộc tính", "Đơn vị "
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbtt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbttMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbtt);
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton4.setText("Xóa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton3.setText("Thêm ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -249,13 +315,13 @@ public class QLiloai_SP extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))))
+                            .addComponent(tftt)
+                            .addComponent(tfdonvi, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))))
                 .addContainerGap(73, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jTextField4, jTextField5});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {tfdonvi, tftt});
 
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,21 +331,21 @@ public class QLiloai_SP extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tftt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfdonvi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-                .addGap(82, 82, 82))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTextField4, jTextField5});
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {tfdonvi, tftt});
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tbloai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -290,7 +356,12 @@ public class QLiloai_SP extends javax.swing.JFrame {
                 "Mã loại", "Tên loại sản phẩm", "DVT"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        tbloai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbloaiMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tbloai);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel9.setText(" Danh sách loại sản phẩm");
@@ -328,7 +399,361 @@ public class QLiloai_SP extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+     public void display(int vitri) {
+        tfmaloai.setText(tbloai.getValueAt(vitri, 0).toString());
+        tfloaisp.setText(tbloai.getValueAt(vitri, 1).toString());
+        tfdvt.setText(tbloai.getValueAt(vitri, 2).toString());
+        tbloai.setRowSelectionInterval(vitri, vitri);
+    }
+     public void displaytt(int vitritt) {
+        tftt.setText(tbtt.getValueAt(vitritt, 1).toString());
+        tfdonvi.setText(tbtt.getValueAt(vitritt, 2).toString());
+        tbtt.setRowSelectionInterval(vitritt, vitritt);
+    }
+    int vitri;
+    String maloai;
+    private void tbloaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbloaiMouseClicked
+        // TODO add your handling code here:
+        int row = tbloai.getSelectedRow();
+        if (row >= 0) {
+            vitri = row;
+            display(vitri);
+        }
+        cleartt();
+        maloai = tbloai.getValueAt(row, 0).toString();
+        if(evt.getClickCount()>1){
+            find();
+            JOptionPane.showMessageDialog(this, maloai);
+            loadtott();
+        }
+    }//GEN-LAST:event_tbloaiMouseClicked
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        them();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        xoa();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        sua();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        themthuoctinh();
+    }//GEN-LAST:event_jButton3ActionPerformed
+    int vitritt;
+    private void tbttMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbttMouseClicked
+        // TODO add your handling code here:
+        int row = tbtt.getSelectedRow();
+        if (row >= 0) {
+            vitritt = row;
+            displaytt(vitritt);
+                    }
+    }//GEN-LAST:event_tbttMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        delete();
+    }//GEN-LAST:event_jButton4ActionPerformed
+    public void loaddatatolist() {
+        try {
+            String sql = "select distinct * from LoaiSP";
+            Statement stm = cn.createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+            while (rs.next()) {
+                String ma = rs.getString(1);
+                String ten = rs.getString(2);
+                String donvi = rs.getString(3);
+                listloai.add(new LoaiSanPham(ma, ten, donvi));
+            }
+            rs.close();
+            stm.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Load list thất bại");
+        }
+    }
+
+    public void loadtott() {
+        try {
+            String sql2 = "select * from THUOCTINH";
+            Statement stm1 = cn.createStatement();
+            ResultSet rs1 = stm1.executeQuery(sql2);
+            while (rs1.next()) {
+                String matt = rs1.getString(1);
+                String maloai = rs1.getString(2);
+                String tentt = rs1.getString(3);
+                String donvitinh = rs1.getString(4);
+                listtt.add(new Thuoctinh(matt, maloai, tentt, donvitinh));
+            }
+            rs1.close();
+            stm1.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Load list thất bại");
+        }
+    }
+
+    public void filldatatotable() {
+        try {
+            model.setRowCount(0);
+            for (LoaiSanPham loai : listloai) {
+                model.addRow(new Object[]{loai.getMaLoai(), loai.getTenLoai(), loai.getDonViTinh()});
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "fill table thất bại");
+        }
+    }
+
+    public void filltt() {
+        try {
+            model2.setRowCount(0);
+            for (Thuoctinh tt : listtt) {
+                model2.addRow(new Object[]{tt.getMatt(), tt.getTruongtt(), tt.getDvt()});
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "fill table thất bại");
+        }
+    }
+
+    public void clear() {
+        tfmaloai.setText("");
+        tfloaisp.setText("");
+        tfdvt.setText("");
+    }
+    public boolean check() {
+        for (LoaiSanPham lsp : listloai) {
+            if (tfmaloai.getText().trim().equalsIgnoreCase(lsp.getMaLoai())) {
+                return false;
+            }
+        }
+        return true;
+    }
+     public boolean validateform(){
+         if (tfmaloai.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập mã loại");
+            tfmaloai.requestFocus();
+            return false;
+        
+        } else if (tfloaisp.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập loại sản phẩm");
+            tfdvt.requestFocus();
+            return false;
+        }else if (tfdonvi.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập đơn vị tính");
+            tfdonvi.requestFocus();
+            return false;
+        } else if (tftt.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chưa trường thuộc tính");
+            tftt.requestFocus();
+            return false;
+        
+        } else if (tfdonvi.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập đơn vị");
+            tfdonvi.requestFocus();
+            return false;
+        }else {
+            return true;
+        }
+    }
+    public void them() {
+        try {
+             if(check()==false){
+                 JOptionPane.showMessageDialog(this, "Mã loại đã tồn tại");
+                 return;
+             }else if(validateform()){
+            String ma = tfmaloai.getText();
+            String ten = tfloaisp.getText();
+            String dvt = tfdvt.getText();
+            listloai.add(new LoaiSanPham(ma, ten, dvt));
+            model.addRow(new Object[]{ma, ten, dvt});
+            String sql = "insert into loaisp \n"
+                    + " values(?,?,?)";
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            pstm.setString(1, ma);
+            pstm.setString(2, ten);
+            pstm.setString(3, dvt);
+            int i = pstm.executeUpdate();
+            if (i > 0) {
+                JOptionPane.showMessageDialog(this, "Them dl thanh cong");
+                vitri = listloai.size() - 1;
+                display(vitri);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ban khong them duoc dong nao");
+
+            }
+             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi thêm ");
+        }
+    }
+
+    public void xoa() {
+        try {
+
+            int i = JOptionPane.showConfirmDialog(this, "Ban co muon xoa khong", "hoi xoa", JOptionPane.YES_NO_OPTION);
+            if (i != JOptionPane.YES_OPTION) {
+                return;
+            }
+            listloai.remove(vitri);
+            String sql = "delete from LoaiSP\n"
+                    + "where MaloaiSP=?";
+
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            pstm.setString(1, tfmaloai.getText());
+            int chon = pstm.executeUpdate();
+            if (chon > 0) {
+                if (listloai.size() == 0) {
+                    clear();
+                } else if (vitri == 0) {
+                    filldatatotable();
+                    JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+                    display(0);
+                } else {
+                    filldatatotable();
+                    JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+                    vitri--;
+                    display(vitri);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Khong xoa duoc dong nao");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Không thể xóa được loại sản phẩm,Loại sản phẩm vẫn đang có trong sản phẩm");
+        }
+    }
+
+    public void sua() {
+        try {
+            if(check()==true){
+                JOptionPane.showMessageDialog(this, "Mã loại sản phẩm không tồn tại");
+            }else if(validateform()){
+            String ma = tfmaloai.getText();
+            String ten = tfloaisp.getText();
+            String dvt = tfdvt.getText();
+            listloai.add(new LoaiSanPham(ma, ten, dvt));
+            model.setValueAt(ma, vitri, 0);
+            model.setValueAt(ten, vitri, 1);
+            model.setValueAt(dvt, vitri, 2);
+
+            String sql = "update LoaiSP\n"
+                    + "set Tenloaisp=?,DonViTinh=?\n"
+                    + "where MaloaiSP=?";
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            pstm.setString(3, ma);
+            pstm.setString(1, ten);
+            pstm.setString(2, dvt);
+            int i = pstm.executeUpdate();
+            if (i > 0) {
+                JOptionPane.showMessageDialog(this, "sua dl thanh cong");
+                display(vitri);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ban khong sua duoc dong nao");
+
+            }
+            }
+
+        } catch (Exception evt) {
+            JOptionPane.showMessageDialog(this, "Lỗi sửa dữ liệu");
+        }
+    }
+
+    public void themthuoctinh() {
+        try {
+            String truong = tftt.getText();
+            String dvt = tfdonvi.getText();
+            String sql = "insert into THUOCTINH\n"
+                    + "values(?,?,?)";
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            pstm.setString(1, maloai);
+            pstm.setString(2, truong);
+            pstm.setString(3, dvt);
+            int i = pstm.executeUpdate();
+            if (i > 0) {
+                listtt.removeAll(listtt);
+                loadtott();
+                filltt();
+                JOptionPane.showMessageDialog(this, "Them dl thanh cong");
+                vitritt = listtt.size() - 1;
+                displaytt(vitritt);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ban khong them duoc dong nao");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn loại sản phẩm để thêm trường thuộc tính");
+        }
+
+    }
+    public void delete() {
+        try {
+
+            int i = JOptionPane.showConfirmDialog(this, "Ban co muon xoa khong", "hoi xoa", JOptionPane.YES_NO_OPTION);
+            if (i != JOptionPane.YES_OPTION) {
+                return;
+            }
+            listtt.remove(vitritt);
+            String sql = "delete from THUOCTINH\n"
+                    + "where MaThuocTinh=?";
+
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            pstm.setString(1,tbtt.getValueAt(vitritt, 0).toString() );
+            int chon = pstm.executeUpdate();
+            if (chon > 0) {
+                if (listtt.size() == 0) {
+                    clear();
+                } else if (vitritt == 0) {
+                    filltt();
+                    JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+                    displaytt(0);
+                } else {
+                    filltt();
+                    JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+                    vitritt--;
+                    displaytt(vitritt);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Khong xoa duoc dong nao");
+            }
+        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Không thể xóa được loại sản phẩm,Loại sản phẩm vẫn đang có trong sản phẩm");
+        }
+    }
+    public void cleartt(){
+        tfdonvi.setText("");
+        tftt.setText("");
+    }
+public void find() {
+        try {
+        String sql = "select *\n"
+                + "from THUOCTINH\n"
+                + "where MaloaiSP=?";
+            PreparedStatement pstm=cn.prepareStatement(sql);
+            pstm.setString(1, maloai);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                String matt = rs.getString(1);
+                String maloai = rs.getString(2);
+                String tentt = rs.getString(3);
+                String donvitinh = rs.getString(4);
+                listtt.add(new Thuoctinh(matt, maloai, tentt, donvitinh));
+            }
+            rs.close();
+            pstm.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Load list thất bại");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -338,86 +763,23 @@ public class QLiloai_SP extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QLiloai_SP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QLiloai_SP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QLiloai_SP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QLiloai_SP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(QLiloai_SP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(QLiloai_SP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(QLiloai_SP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(QLiloai_SP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -449,12 +811,12 @@ public class QLiloai_SP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSlider jSlider1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tbloai;
+    private javax.swing.JTable tbtt;
+    private javax.swing.JTextField tfdonvi;
+    private javax.swing.JTextField tfdvt;
+    private javax.swing.JTextField tfloaisp;
+    private javax.swing.JTextField tfmaloai;
+    private javax.swing.JTextField tftt;
     // End of variables declaration//GEN-END:variables
 }
