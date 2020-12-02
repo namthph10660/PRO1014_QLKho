@@ -3,18 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/PhieuNhapDAO.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/ChiTietPX.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/QLNhaCC.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/PhieuXuat.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/DanhSach_PhieuNhapKho.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/PhieuNhap.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/LoSPDAO.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/LoSP.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/PhieuXuatDAO.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/NhaCCDao.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/NhanVienDAO.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/PhieuXuatKho.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/TrangChu1.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/Doi_MK.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/TaoPhieuNhapKho.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/ThongTinSP.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/quanlisp.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/BaoCao.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/PhieuXuatKho.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/SPTonKho.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/DSPhieuTra.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/QLiloai_SP.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/DanhSach_PhieuNhapKho.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/Quen_MK.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/Model/LoaiSanPham.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/ThongTinLo_SP.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/DSPhieuXuat.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/QLNhaCC.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/QLiLo_SP.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/Model/SanPham.java</file>
+            <file>file:/E:/duan1/New%20folder/PRO1014_QLKho/src/pro1014_qlkho/QLNhanVien1.java</file>
         </group>
     </open-files>
 </project-private>

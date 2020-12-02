@@ -33,6 +33,15 @@ public class SanPham {
 
     public void setMaSp(String MaSp) {
         this.MaSp = MaSp;
+    public SanPham() {
+    }
+
+    public int getMaSp() {
+        return Masp;
+    }
+
+    public void setMaSp(int MaSp) {
+        this.Masp = MaSp;
     }
 
     public String getLoaiSp() {
