@@ -3,19 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/DSPhieuTra.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/QLiLo_SP.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/DanhSach_PhieuNhapKho.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/TrangChu.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/Doi_MK.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/NhaCungCap.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/PhieuXuatKho.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/PhieuNhapDAO.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/ChiTietPX.java</file>
             <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/QLNhaCC.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/DSPhieuXuat.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/QLNhanVien.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/NhanVien.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/BaoCao.java</file>
-            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/Dang_Nhap.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/PhieuXuat.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/DanhSach_PhieuNhapKho.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/PhieuNhap.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/LoSPDAO.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/Model/LoSP.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/PhieuXuatDAO.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/NhaCCDao.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/DAO/NhanVienDAO.java</file>
+            <file>file:/F:/DuAn1/PRO1014_QLKho/src/pro1014_qlkho/PhieuXuatKho.java</file>
         </group>
     </open-files>
 </project-private>

@@ -6,6 +6,11 @@
 package DAO;
 
 import Model.NhaCungCap;
+import java.awt.HeadlessException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +18,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  *
@@ -32,7 +48,7 @@ public class NhaCCDao {
 
     public NhaCCDao() {
     }
-
+    
     public ArrayList<NhaCungCap> getListNguonCungCap(Connection cn) {
         ArrayList<NhaCungCap> result = new ArrayList<>();
         String sql = "select * from NhaCungCap ";
@@ -65,7 +81,7 @@ public class NhaCCDao {
         String sql = "SELECT * FROM NHACUNGCAP WHERE CONCAT(MaNhaCC, TenNhaCC,NguoiDaiDien,Email,SDT,DiaChi) LIKE '%" + ValToSearch + "%'";
         try {
             PreparedStatement prs = cn.prepareStatement(sql);
-            
+
             ResultSet rs = prs.executeQuery();
             NhaCungCap NhaCC;
 
@@ -146,7 +162,7 @@ public class NhaCCDao {
                     "Thông báo",
                     JOptionPane.INFORMATION_MESSAGE);
             return true;
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
 
@@ -165,12 +181,13 @@ public class NhaCCDao {
                     "Thông báo",
                     JOptionPane.INFORMATION_MESSAGE);
             return true;
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
 
         }
         return false;
     }
+
     public ArrayList<NhaCungCap> get20NguonCungCap(ArrayList<NhaCungCap> arr, long Trang) {
         ArrayList<NhaCungCap> result = new ArrayList<>();
         for (long i = (Trang * 20 - 20); i < (Trang * 20); i++) {
@@ -181,5 +198,87 @@ public class NhaCCDao {
         }
         return result;
     }
+  
+    public void ExcelNguonCungCap(ArrayList<NhaCungCap> arr) {
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("NhaCungCap");
+        int rownum = 0;
+        Cell cell;
+        HSSFCellStyle style = createStyleForTitle(workbook);
+        Row row;
+
+        row = sheet.createRow(rownum);
+
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Tên nhà cung cấp");
+        cell.setCellStyle(style);
+        //
+        cell = row.createCell(1, CellType.STRING);
+        cell.setCellValue("Tên Đại Diện");
+        cell.setCellStyle(style);
+        //
+        cell = row.createCell(2, CellType.STRING);
+        cell.setCellValue("Email");
+        cell.setCellStyle(style);
+        //
+        cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("SDT");
+        cell.setCellStyle(style);
+        //
+        cell = row.createCell(4, CellType.STRING);
+        cell.setCellValue("Địa chỉ");
+        cell.setCellStyle(style);
+
+        for (NhaCungCap ncc:arr) {
+            rownum++;
+            row = sheet.createRow(rownum);
+            //
+            row.createCell(0)  
+            .setCellValue(ncc.getTenNhaCC());  
+            //
+            row.createCell(1)  
+            .setCellValue(ncc.getNguoiDD());  
+            //
+            row.createCell(2)  
+            .setCellValue(ncc.getEmail());  
+            //
+            row.createCell(3)  
+            .setCellValue(ncc.getSDT());  
+            //
+            row.createCell(4)  
+            .setCellValue(ncc.getDiaChi());  
+            
+        }
+        File file = new File("F:/DuAn1/Excel/NhaCungCap.xls");
+        
+//        file.getParentFile().mkdirs();
+
+        FileOutputStream outFile;
+        try {
+            outFile = new FileOutputStream(file);
+            
+            workbook.write(outFile);
+            outFile.close(); 
+            workbook.close();
+            JOptionPane.showMessageDialog(null, "Tạo file Excel thành công ");
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+
+        System.out.println("Created file: " + file.getAbsolutePath());
+        
+    }
+
+    private static HSSFCellStyle createStyleForTitle(HSSFWorkbook workbook) {
+        HSSFFont font = workbook.createFont();
+        font.setBold(true);
+        HSSFCellStyle style = workbook.createCellStyle();
+        style.setFont(font);
+        return style;
+    }
     
+    
+ 
 }

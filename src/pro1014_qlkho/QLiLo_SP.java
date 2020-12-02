@@ -8,6 +8,7 @@ package pro1014_qlkho;
 import DAO.LoSPDAO;
 import DAO.NhaCCDao;
 import Helper.helper;
+import Helper.helper1;
 import Model.LoSP;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class QLiLo_SP extends javax.swing.JFrame {
 
     private void build() {
 
-       // int row = tblLoSP.getSelectedRow();
+        // int row = tblLoSP.getSelectedRow();
         this.count = this.listLoSP.size();
         lbTong.setText("Có tổng cộng " + count + " kết quả");
         if (count % 20 == 0) {
@@ -58,11 +59,11 @@ public class QLiLo_SP extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         try {
-            cn = helper.ketnoi("QLK");
+            cn = helper1.ketnoi("QLK");
             listLoSP = LoSPDAO.getInstance().getListLoSP(cn);
             build();
             //JOptionPane.showMessageDialog(this, listLoSP.get(1).getMaLo());
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
@@ -80,10 +81,10 @@ public class QLiLo_SP extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLoSP = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnFirst = new javax.swing.JButton();
+        btnPrev = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        btnLast = new javax.swing.JButton();
         lbTrang = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -92,7 +93,7 @@ public class QLiLo_SP extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Danh sách lô sản phẩm");
 
         tblLoSP.setModel(new javax.swing.table.DefaultTableModel(
@@ -114,24 +115,51 @@ public class QLiLo_SP extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblLoSP.setToolTipText("Click để xem chi tiết");
+        tblLoSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLoSPMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblLoSP);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("<<");
+        btnFirst.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnFirst.setText("|<");
+        btnFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFirstActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton2.setText("|<");
+        btnPrev.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnPrev.setText("<<");
+        btnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton3.setText(">>");
+        btnNext.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnNext.setText(">>");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton4.setText(">|");
+        btnLast.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnLast.setText(">|");
+        btnLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLastActionPerformed(evt);
+            }
+        });
 
         lbTrang.setText("1/10");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Search.png"))); // NOI18N
 
+        txtSearch.setToolTipText("Nhập từ tìm kiếm vào đây!");
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);
@@ -177,16 +205,12 @@ public class QLiLo_SP extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(246, 246, 246))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
-                        .addComponent(jButton1)
+                        .addComponent(btnFirst)
                         .addGap(46, 46, 46)
-                        .addComponent(jButton2)
+                        .addComponent(btnPrev)
                         .addGap(88, 88, 88)
                         .addComponent(lbTrang))
                     .addGroup(layout.createSequentialGroup()
@@ -197,13 +221,17 @@ public class QLiLo_SP extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(btnNext)
                         .addGap(22, 22, 22)
-                        .addComponent(jButton4)
+                        .addComponent(btnLast)
                         .addGap(68, 68, 68))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(185, 185, 185))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,12 +244,12 @@ public class QLiLo_SP extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
+                    .addComponent(btnFirst)
+                    .addComponent(btnPrev)
+                    .addComponent(btnNext)
+                    .addComponent(btnLast)
                     .addComponent(lbTrang))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,19 +270,65 @@ public class QLiLo_SP extends javax.swing.JFrame {
                             "Lỗi",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    
+
                     build();
-                    
+
                 }
             } else {
                 listLoSP = LoSPDAO.getInstance().getListLoSP(cn);
                 build();
-                
+
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void tblLoSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoSPMouseClicked
+        int row = tblLoSP.getSelectedRow();
+        viTri = row;
+        int a = listLoSP.get(viTri).getMaLo();
+        if (evt.getClickCount() > 1) {
+
+            new ThongTinLo_SP(a, cn).setVisible(true);
+        }
+    }//GEN-LAST:event_tblLoSPMouseClicked
+
+    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
+        Trang = 1;
+        ArrayList<LoSP> table = DAO.LoSPDAO.getInstance().get20NguonCungCap(listLoSP, Trang);
+        fillTable(table);
+
+        lbTrang.setText("1/" + SoTrang);
+    }//GEN-LAST:event_btnFirstActionPerformed
+
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
+        if (Trang > 1) {
+            Trang--;
+            ArrayList<LoSP> table = DAO.LoSPDAO.getInstance().get20NguonCungCap(listLoSP, Trang);
+            fillTable(table);
+
+            lbTrang.setText(Trang + "/" + SoTrang);
+        }
+    }//GEN-LAST:event_btnPrevActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        if (Trang < SoTrang) {
+            Trang++;
+            ArrayList<LoSP> table = DAO.LoSPDAO.getInstance().get20NguonCungCap(listLoSP, Trang);
+            fillTable(table);
+
+            lbTrang.setText(Trang + "/" + SoTrang);
+        }
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
+        Trang = SoTrang;
+        ArrayList<LoSP> table = DAO.LoSPDAO.getInstance().get20NguonCungCap(listLoSP, Trang);
+        fillTable(table);
+
+        lbTrang.setText(Trang + "/" + SoTrang);
+    }//GEN-LAST:event_btnLastActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,10 +367,10 @@ public class QLiLo_SP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnFirst;
+    private javax.swing.JButton btnLast;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrev;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

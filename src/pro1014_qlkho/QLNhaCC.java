@@ -7,6 +7,7 @@ package pro1014_qlkho;
 
 import DAO.NhaCCDao;
 import Helper.helper;
+import Helper.helper1;
 import Model.NhaCungCap;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -116,7 +117,7 @@ public class QLNhaCC extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         try {
-            cn = helper.ketnoi("QLK");
+            cn = helper1.ketnoi("QLK");
             listNhaCC = NhaCCDao.getInstance().getListNguonCungCap(cn);
             build();
             display(0);
@@ -165,7 +166,6 @@ public class QLNhaCC extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDiaChi = new javax.swing.JTextArea();
         lbTong = new javax.swing.JLabel();
-        lbSoTrang = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -223,7 +223,12 @@ public class QLNhaCC extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbl_DSachNCC);
 
         btnExcel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnExcel.setText("Nhập file Excel");
+        btnExcel.setText("Xuất file Excel");
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcelActionPerformed(evt);
+            }
+        });
 
         btnPrev.setText("<<");
         btnPrev.addActionListener(new java.awt.event.ActionListener() {
@@ -349,8 +354,6 @@ public class QLNhaCC extends javax.swing.JFrame {
 
         lbTong.setText("jLabel9");
 
-        lbSoTrang.setText("jLabel11");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -390,11 +393,7 @@ public class QLNhaCC extends javax.swing.JFrame {
                                             .addComponent(txtNguoi, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(206, 206, 206)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
@@ -406,16 +405,18 @@ public class QLNhaCC extends javax.swing.JFrame {
                         .addGap(51, 51, 51))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbTong)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbSoTrang)
-                        .addGap(108, 108, 108))))
+                        .addGap(108, 660, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(258, 258, 258))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -423,8 +424,8 @@ public class QLNhaCC extends javax.swing.JFrame {
                             .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtTenNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -439,7 +440,7 @@ public class QLNhaCC extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(15, 15, 15)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -458,9 +459,7 @@ public class QLNhaCC extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(btnExcel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lbSoTrang)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(30, 30, 30)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -646,6 +645,14 @@ public class QLNhaCC extends javax.swing.JFrame {
             lbTrang.setText(Trang + "/" + SoTrang);
     }//GEN-LAST:event_btnLastActionPerformed
 
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
+        try {
+            NhaCCDao.getInstance().ExcelNguonCungCap(listNhaCC);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+    }//GEN-LAST:event_btnExcelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -704,7 +711,6 @@ public class QLNhaCC extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lbSoTrang;
     private javax.swing.JLabel lbTong;
     private javax.swing.JLabel lbTrang;
     private javax.swing.JTable tbl_DSachNCC;

@@ -43,21 +43,21 @@ public class NhanVienDAO {
 //    }
 
     //Kiểm tra khi đăng nhập
-    public boolean KiemTraDangNhap(String User, String Pass) {
-        ArrayList<Object> arr = new ArrayList<>();
-
-        String query = "SELECT * FROM `Tai_khoan` WHERE ten_tai_khoan='" + User + "' and mat_khau='" + Pass + "'";
-        try {
-            DataProvider.getIntance().open();
-            ResultSet rs = DataProvider.getIntance().excuteQuery(query, arr);
-            if (rs.next()) {
-                return true;
-            }
-
-            DataProvider.getIntance().close();
-        } catch (SQLException ex) {
-            DataProvider.getIntance().displayError(ex);
-        }
-        return false;
-    }
+//    public boolean KiemTraDangNhap(String User, String Pass) {
+//        ArrayList<Object> arr = new ArrayList<>();
+//
+//        String query = "SELECT * FROM `Tai_khoan` WHERE ten_tai_khoan='" + User + "' and mat_khau='" + Pass + "'";
+//        try {
+//            DataProvider.getIntance().open();
+//            ResultSet rs = DataProvider.getIntance().excuteQuery(query, arr);
+//            if (rs.next()) {
+//                return true;
+//            }
+//
+//            DataProvider.getIntance().close();
+//        } catch (SQLException ex) {
+//            DataProvider.getIntance().displayError(ex);
+//        }
+//        return false;
+//    }
 }
